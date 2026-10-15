@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-15
+
 ### Added
 
 - A "GDACS alerts" device for your area: number of active alerts, highest GDACS level (green,
@@ -28,3 +30,6 @@ the notes of the version's GitHub Release.
 - "Show the current alerts" in the Configuration screen.
 - Refresh every 10, 15, 30 or 60 minutes by the integration itself, without relying on Gladys
   polling. Texts in English, French, German and Spanish.
+
+[Unreleased]: https://github.com/guim31/gladys-gdacs/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/guim31/gladys-gdacs/releases/tag/v1.0.0
