@@ -1,0 +1,857 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "bbox": [
+    -86.049,
+    10.3031,
+    -86.049,
+    10.3031
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -86.049,
+     10.3031
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1571782,
+    "episodeid": 1740355,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Costa Rica",
+    "description": "Earthquake in Costa Rica",
+    "htmldescription": "Green M 4.5 Earthquake in Costa Rica at: 15 Oct 2026 15:40:38.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1571782&episodeid=1740355",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1571782&episodeid=1740355&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1571782"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Costa Rica",
+    "fromdate": "2026-10-15T15:40:38",
+    "todate": "2026-10-15T15:40:38",
+    "datemodified": "2026-10-15T18:34:46",
+    "iso3": "CRI",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CR",
+      "iso3": "CRI",
+      "countryname": "Costa Rica"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.5,
+     "severitytext": "Magnitude 4.5M, Depth:22.782km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -80.0893,
+    7.4452,
+    -80.0893,
+    7.4452
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.0893,
+     7.4452
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1571772,
+    "episodeid": 1740307,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Panama",
+    "description": "Earthquake in Panama",
+    "htmldescription": "Green M 4.5 Earthquake in Panama at: 15 Oct 2026 13:31:37.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1571772&episodeid=1740307",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1571772&episodeid=1740307&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1571772"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Panama",
+    "fromdate": "2026-10-15T13:31:37",
+    "todate": "2026-10-15T13:31:37",
+    "datemodified": "2026-10-15T18:35:15",
+    "iso3": "PAN",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "PA",
+      "iso3": "PAN",
+      "countryname": "Panama"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.5,
+     "severitytext": "Magnitude 4.5M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -152.703,
+    64.229,
+    -152.703,
+    64.229
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -152.703,
+     64.229
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1571732,
+    "episodeid": 1740258,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in United States",
+    "description": "Earthquake in United States",
+    "htmldescription": "Green M 5.6 Earthquake in United States at: 15 Oct 2026 11:07:01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1571732&episodeid=1740258",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1571732&episodeid=1740258&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1571732"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "United States",
+    "fromdate": "2026-10-15T11:07:01",
+    "todate": "2026-10-15T11:07:01",
+    "datemodified": "2026-10-15T11:28:23",
+    "iso3": "USA",
+    "source": "ALASKA EC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "US",
+      "iso3": "USA",
+      "countryname": "United States"
+     }
+    ],
+    "severitydata": {
+     "severity": 5.6,
+     "severitytext": "Magnitude 5.6M, Depth:1km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -108.1,
+    19.2,
+    -108.1,
+    19.2
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -108.1,
+     19.2
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001335,
+    "episodeid": 33,
+    "eventname": "SIMON-26",
+    "glide": "",
+    "name": "Tropical Cyclone SIMON-26",
+    "description": "Tropical Cyclone SIMON-26",
+    "htmldescription": "Orange Tropical Cyclone SIMON-26 in México from: 07 Oct 2026  to: 15 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001335&episodeid=33",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001335&episodeid=33&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001335"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "México",
+    "fromdate": "2026-10-07T15:00:00",
+    "todate": "2026-10-15T15:00:00",
+    "datemodified": "2026-10-15T15:01:38",
+    "iso3": "MEX",
+    "source": "NOAA",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 249.9984,
+     "severitytext": "Tropical Storm (maximum wind speed of 250 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    157.4,
+    11.0,
+    157.4,
+    11.0
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     157.4,
+     11.0
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001338,
+    "episodeid": 5,
+    "eventname": "CHAMPI-26",
+    "glide": "",
+    "name": "Tropical Cyclone CHAMPI-26",
+    "description": "Tropical Cyclone CHAMPI-26",
+    "htmldescription": "Orange Tropical Cyclone CHAMPI-26 in Guam from: 14 Oct 2026  to: 15 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001338&episodeid=5",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001338&episodeid=5&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001338"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Orange",
+    "episodealertscore": 2.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Guam",
+    "fromdate": "2026-10-14T12:00:00",
+    "todate": "2026-10-15T12:00:00",
+    "datemodified": "2026-10-15T13:56:37",
+    "iso3": "GUM",
+    "source": "JTWC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "GU",
+      "iso3": "GUM",
+      "countryname": "Guam"
+     }
+    ],
+    "severitydata": {
+     "severity": 231.48,
+     "severitytext": "Tropical Storm (maximum wind speed of 231 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -101.6,
+    13.1,
+    -101.6,
+    13.1
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -101.6,
+     13.1
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001337,
+    "episodeid": 9,
+    "eventname": "TRUDY-26",
+    "glide": "",
+    "name": "Tropical Cyclone TRUDY-26",
+    "description": "Tropical Cyclone TRUDY-26",
+    "htmldescription": "Green Tropical Cyclone TRUDY-26 in México from: 13 Oct 2026  to: 15 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001337&episodeid=9",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001337&episodeid=9&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001337"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "México",
+    "fromdate": "2026-10-13T15:00:00",
+    "todate": "2026-10-15T15:00:00",
+    "datemodified": "2026-10-15T15:23:09",
+    "iso3": "MEX",
+    "source": "NOAA",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 231.48,
+     "severitytext": "Hurricane/Typhoon > 74 mph (maximum wind speed of 231 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -73.3711,
+    41.119,
+    -73.3711,
+    41.119
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -73.3711,
+     41.119
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103888,
+    "episodeid": 91,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in United States",
+    "description": "Flood in United States",
+    "htmldescription": "Green Flood in United States from: 19 May 2026 01 to: 16 Oct 2026 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103888&episodeid=91",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103888&episodeid=91&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103888"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "United States",
+    "fromdate": "2026-05-19T01:00:00",
+    "todate": "2026-10-16T01:00:00",
+    "datemodified": "2026-10-15T10:04:30",
+    "iso3": "USA",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "US",
+      "iso3": "USA",
+      "countryname": "United States"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -45.468,
+    -11.7775,
+    -45.468,
+    -11.7775
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -45.468,
+     -11.7775
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1032713,
+    "episodeid": 13,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Brazil",
+    "description": "Forest fires in Brazil",
+    "htmldescription": "Green Forest fires in Brazil from: 07 Oct 2026 to: 15 Oct 2026.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1032713&episodeid=13",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1032713&episodeid=13&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1032713"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Brazil",
+    "fromdate": "2026-10-07T00:00:00",
+    "todate": "2026-10-15T00:00:00",
+    "datemodified": "2026-10-15T15:08:49",
+    "iso3": "BRA",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "BR",
+      "iso3": "BRA",
+      "countryname": "Brazil"
+     }
+    ],
+    "severitydata": {
+     "severity": 10210.0,
+     "severitytext": "Green impact for forestfire in 10210 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    13.696,
+    48.764,
+    13.696,
+    48.764
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     13.696,
+     48.764
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1018332,
+    "episodeid": 24,
+    "eventname": "Europe-2026",
+    "glide": "DR-2025-000239-ALB",
+    "name": "Drought in Austria, Bosnia  and  Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Norway, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, ",
+    "description": "Drought in Austria, Bosnia  and  Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Norway, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, ",
+    "htmldescription": "Orange Drought in Austria, Bosnia  and  Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Norway, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, from: 21 Dec 2025  to: 13 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1018332&episodeid=24",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1018332&episodeid=24&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1018332"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Orange",
+    "episodealertscore": 1.25,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Norway, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, ",
+    "fromdate": "2025-12-21T00:00:00",
+    "todate": "2026-10-13T00:00:00",
+    "datemodified": "2026-10-15T05:57:05",
+    "iso3": "AUT",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AT",
+      "iso3": "AUT",
+      "countryname": "Austria"
+     },
+     {
+      "iso2": "BA",
+      "iso3": "BIH",
+      "countryname": "Bosnia & Herzegovina"
+     },
+     {
+      "iso2": "BE",
+      "iso3": "BEL",
+      "countryname": "Belgium"
+     },
+     {
+      "iso2": "BY",
+      "iso3": "BLR",
+      "countryname": "Belarus"
+     },
+     {
+      "iso2": "CH",
+      "iso3": "CHE",
+      "countryname": "Switzerland"
+     },
+     {
+      "iso2": "CZ",
+      "iso3": "CZE",
+      "countryname": "Czech Republic"
+     },
+     {
+      "iso2": "DE",
+      "iso3": "DEU",
+      "countryname": "Germany"
+     },
+     {
+      "iso2": "DK",
+      "iso3": "DNK",
+      "countryname": "Denmark"
+     },
+     {
+      "iso2": "ES",
+      "iso3": "ESP",
+      "countryname": "Spain"
+     },
+     {
+      "iso2": "FR",
+      "iso3": "FRA",
+      "countryname": "France"
+     },
+     {
+      "iso2": "HR",
+      "iso3": "HRV",
+      "countryname": "Croatia"
+     },
+     {
+      "iso2": "HU",
+      "iso3": "HUN",
+      "countryname": "Hungary"
+     },
+     {
+      "iso2": "IE",
+      "iso3": "IRL",
+      "countryname": "Ireland"
+     },
+     {
+      "iso2": "IT",
+      "iso3": "ITA",
+      "countryname": "Italy"
+     },
+     {
+      "iso2": "LI",
+      "iso3": "LIE",
+      "countryname": "Liechtenstein"
+     },
+     {
+      "iso2": "LU",
+      "iso3": "LUX",
+      "countryname": "Luxembourg"
+     },
+     {
+      "iso2": "MD",
+      "iso3": "MDA",
+      "countryname": "Moldova"
+     },
+     {
+      "iso2": "ME",
+      "iso3": "MNE",
+      "countryname": "Montenegro"
+     },
+     {
+      "iso2": "NL",
+      "iso3": "NLD",
+      "countryname": "Netherlands"
+     },
+     {
+      "iso2": "NO",
+      "iso3": "NOR",
+      "countryname": "Norway"
+     },
+     {
+      "iso2": "PL",
+      "iso3": "POL",
+      "countryname": "Poland"
+     },
+     {
+      "iso2": "RO",
+      "iso3": "ROU",
+      "countryname": "Romania"
+     },
+     {
+      "iso2": "RS",
+      "iso3": "SRB",
+      "countryname": "Serbia"
+     },
+     {
+      "iso2": "RU",
+      "iso3": "RUS",
+      "countryname": "Russia"
+     },
+     {
+      "iso2": "SE",
+      "iso3": "SWE",
+      "countryname": "Sweden"
+     },
+     {
+      "iso2": "SI",
+      "iso3": "SVN",
+      "countryname": "Slovenia"
+     },
+     {
+      "iso2": "SK",
+      "iso3": "SVK",
+      "countryname": "Slovakia"
+     },
+     {
+      "iso2": "SM",
+      "iso3": "SMR",
+      "countryname": "San Marino"
+     },
+     {
+      "iso2": "UA",
+      "iso3": "UKR",
+      "countryname": "Ukraine"
+     }
+    ],
+    "severitydata": {
+     "severity": 1759971.0,
+     "severitytext": "Medium impact for agricultural drought in 1759971 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    123.132,
+    10.412,
+    123.132,
+    10.412
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     123.132,
+     10.412
+    ]
+   },
+   "properties": {
+    "eventtype": "VO",
+    "eventid": 1000152,
+    "episodeid": 1,
+    "eventname": "Kanlaon",
+    "glide": "VO-2026-000190-PHL",
+    "name": "Eruption  Kanlaon",
+    "description": "Eruption  Kanlaon",
+    "htmldescription": "Orange Eruption Kanlaon in Philippines at: 10 Oct 2026 05:58.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/VO.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/VO.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=VO&eventid=1000152&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1000152&episodeid=1&eventtype=VO",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=VO&eventid=1000152"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Orange",
+    "episodealertscore": 1.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Philippines",
+    "fromdate": "2026-10-10T05:58:00",
+    "todate": "2026-10-10T05:58:00",
+    "datemodified": "2026-10-12T06:02:40",
+    "iso3": "PHL",
+    "source": "TOKYO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "PH",
+      "iso3": "PHL",
+      "countryname": "Philippines"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -80.769,
+    7.5868,
+    -80.769,
+    7.5868
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.769,
+     7.5868
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1570339,
+    "episodeid": 1738684,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Panama",
+    "description": "Earthquake in Panama",
+    "htmldescription": "Orange M 7.7 Earthquake in Panama at: 09 Oct 2026 17:56:06.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1570339&episodeid=1738684",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1570339&episodeid=1738684&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1570339"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Orange",
+    "episodealertscore": 1.045,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Panama",
+    "fromdate": "2026-10-09T17:56:06",
+    "todate": "2026-10-09T17:56:06",
+    "datemodified": "2026-10-15T08:39:43",
+    "iso3": "PAN",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "PA",
+      "iso3": "PAN",
+      "countryname": "Panama"
+     }
+    ],
+    "severitydata": {
+     "severity": 7.7,
+     "severitytext": "Magnitude 7.7M, Depth:12.647km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -108.0,
+    30.5,
+    -108.0,
+    30.5
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -108.0,
+     30.5
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001325,
+    "episodeid": 38,
+    "eventname": "POLO-26",
+    "glide": "TC-2026-000184-MEX",
+    "name": "Tropical Cyclone POLO-26",
+    "description": "Tropical Cyclone POLO-26",
+    "htmldescription": "Red Tropical Cyclone POLO-26 in Mexico from: 21 Sep 2026  to: 30 Sep 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Red/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001325&episodeid=38",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001325&episodeid=38&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001325"
+    },
+    "alertlevel": "Red",
+    "alertscore": 3,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Mexico",
+    "fromdate": "2026-09-21T03:00:00",
+    "todate": "2026-09-30T03:00:00",
+    "datemodified": "2026-10-01T05:00:43",
+    "iso3": "",
+    "source": "NOAA",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     }
+    ],
+    "severitydata": {
+     "severity": 287.0352,
+     "severitytext": "Tropical Depression (maximum wind speed of 287 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  }
+ ]
+}
