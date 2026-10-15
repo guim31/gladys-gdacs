@@ -222,6 +222,29 @@ test('without a located house nor coordinates: no distance, and the status says 
   assert.equal(w.fake.lastState(featureId(device, 'alert_count')), 1);
   assert.equal(w.fake.lastState(featureId(device, 'nearest_distance')), undefined);
   assert.match(w.fake.connectionStatus.message.en, /No centre/);
+  // No invented "0 km" in the texts.
+  const latest = w.fake.states.find(
+    (s) => s.device_feature_external_id === featureId(device, 'latest_event'),
+  );
+  assert.doesNotMatch(latest.text, /km/);
+  const { data } = await w.fake.sceneAction('read_alerts', {});
+  assert.doesNotMatch(data.outputs.text, /km/);
+});
+
+test('a configuration change during a cycle still fires nothing for the wider area', async (t) => {
+  const w = await world(t);
+  // A cycle in flight with the old configuration, then the change.
+  const running = w.monitor.runCycle();
+  const saved = w.fake.configUpdated({ radius: '5000' });
+  await running;
+  await saved;
+  assert.equal(followedKeys(w).length, 6);
+  assert.deepEqual(w.fake.sceneEvents, []);
+});
+
+test('a first cycle without any event still refreshes the widget', async (t) => {
+  const w = await world(t, { event_types: ['volcano'] });
+  assert.ok(w.fake.widgetRefreshes.length > 0);
 });
 
 test('GDACS down: the status says it, the last values stay, and they come back', async (t) => {

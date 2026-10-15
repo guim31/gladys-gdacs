@@ -65,7 +65,8 @@ export const LEVEL_COLORS = {
 export const PHRASES = {
   en: {
     none: 'No active alert',
-    item: ({ what, place, km }) => `${what}${place ? ` in ${place}` : ''}, ${km} km away`,
+    item: ({ what, place, km }) =>
+      `${what}${place ? ` in ${place}` : ''}${km === null ? '' : `, ${km} km away`}`,
     list: ({ head, items }) => `${head}: ${items.join('; ')}.`,
     more: ({ count }) => `and ${count} more`,
     alerts: ({ count }) => (count === 1 ? '1 GDACS alert' : `${count} GDACS alerts`),
@@ -74,7 +75,8 @@ export const PHRASES = {
   },
   fr: {
     none: 'Aucune alerte en cours',
-    item: ({ what, place, km }) => `${what}${place ? ` (${place})` : ''}, à ${km} km`,
+    item: ({ what, place, km }) =>
+      `${what}${place ? ` (${place})` : ''}${km === null ? '' : `, à ${km} km`}`,
     list: ({ head, items }) => `${head} : ${items.join(' ; ')}.`,
     more: ({ count }) => `et ${count} de plus`,
     alerts: ({ count }) => (count === 1 ? '1 alerte GDACS' : `${count} alertes GDACS`),
@@ -83,7 +85,8 @@ export const PHRASES = {
   },
   de: {
     none: 'Keine aktive Warnung',
-    item: ({ what, place, km }) => `${what}${place ? ` in ${place}` : ''}, ${km} km entfernt`,
+    item: ({ what, place, km }) =>
+      `${what}${place ? ` in ${place}` : ''}${km === null ? '' : `, ${km} km entfernt`}`,
     list: ({ head, items }) => `${head}: ${items.join('; ')}.`,
     more: ({ count }) => `und ${count} weitere`,
     alerts: ({ count }) => (count === 1 ? '1 GDACS-Warnung' : `${count} GDACS-Warnungen`),
@@ -92,7 +95,8 @@ export const PHRASES = {
   },
   es: {
     none: 'Ninguna alerta activa',
-    item: ({ what, place, km }) => `${what}${place ? ` en ${place}` : ''}, a ${km} km`,
+    item: ({ what, place, km }) =>
+      `${what}${place ? ` en ${place}` : ''}${km === null ? '' : `, a ${km} km`}`,
     list: ({ head, items }) => `${head}: ${items.join('; ')}.`,
     more: ({ count }) => `y ${count} más`,
     alerts: ({ count }) => (count === 1 ? '1 alerta GDACS' : `${count} alertas GDACS`),
@@ -251,7 +255,8 @@ export function describe(event, language) {
     LEVEL_NAMES[language][event.level],
     headlineOf(event, language),
     placeOf(event, language),
-    `${km(event.distanceKm, language)} km`,
+    // No distance without a centre (countries and worldwide red alerts only).
+    event.distanceKm === null ? '' : `${km(event.distanceKm, language)} km`,
   ]
     .filter(Boolean)
     .join(' · ');
@@ -274,7 +279,7 @@ export function sentence(events, language) {
     p.item({
       what: `${LEVEL_NAMES[language][event.level]} · ${headlineOf(event, language)}`,
       place: placeOf(event, language),
-      km: km(event.distanceKm, language),
+      km: event.distanceKm === null ? null : km(event.distanceKm, language),
     }),
   );
   const rest = events.length - SENTENCE_EVENTS;

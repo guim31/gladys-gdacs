@@ -99,8 +99,7 @@ gewählt. Filter: Ereignistypen, Warnstufe.
 oder von Orange auf Rot. Filter: Ereignistypen, neue Stufe.
 
 Die Ereignisse, die beim allerersten Start der Integration oder bei einer Änderung ihrer Konfiguration
-schon da sind, lösen nichts aus: Das sind keine Neuigkeiten. Was gesehen wurde, wird gespeichert, also löst
-auch ein Neustart nichts aus. Höchstens 20 Ereignisse pro Aktualisierung.
+schon da sind, lösen nichts aus: Das sind keine Neuigkeiten. Was gesehen wurde, wird gespeichert: Ein Neustart löst für schon gesehene Ereignisse nichts erneut aus (ein Ereignis, das während des Stillstands auftrat, ist neu). Höchstens 20 Ereignisse pro Aktualisierung.
 
 Variablen beider Auslöser: `event_type` (`earthquake`, `tropical_cyclone`, `flood`, `volcano`,
 `drought`, `wildfire`), `level` (`green`, `orange`, `red`), `event_type_name` und `level_name`

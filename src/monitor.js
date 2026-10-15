@@ -97,7 +97,8 @@ export class Monitor {
     this.running = null;
     this.lastRefreshAt = -Infinity;
     this.refreshTimer = null;
-    this.signature = '';
+    // null: the first successful cycle always nudges the widget, even without event.
+    this.signature = null;
     this.stopped = false;
     // Keys of the failures already logged, so a repeated one is not logged again.
     this.failing = new Set();
@@ -151,10 +152,12 @@ export class Monitor {
   }
 
   async reconfigure(config) {
+    // A cycle already running finishes with the old configuration, whole: the
+    // new one comes after, and a wider area brings events that are not news.
+    await this.running;
     const languageChanged = config.language !== this.config?.language;
     this.config = config;
     this.houseReadAt = -Infinity;
-    // A wider area brings events that are not news.
     this.seedNext = true;
     logger.info('Configuration saved');
     this.warnAboutConfig();
@@ -162,8 +165,6 @@ export class Monitor {
       await this.publishDiscovered();
     }
     this.schedule();
-    // A cycle already running reads the old configuration: the new one comes after.
-    await this.running;
     await this.runCycle();
     this.requestRefresh();
   }

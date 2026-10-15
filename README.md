@@ -58,7 +58,7 @@ Gladys core ── device, states, scene events, scene action, widget
   (GladysAssistant/Gladys#3198).
 - Distances are great-circle distances to the point GDACS gives (epicentre, cyclone position,
   centre of a flood, drought or fire). Countries match the affected countries GDACS lists.
-- The events seen and their level are kept under `/data`, so a restart fires no trigger; the
+- The events seen and their level are kept under `/data`, so a restart fires no trigger for an event already seen; the
   events already there at the first start or after a change of settings are not news either.
 
 ## Limitations

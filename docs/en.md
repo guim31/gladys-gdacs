@@ -92,7 +92,7 @@ earthquake, a cyclone moving closer, a red alert anywhere if chosen. Filters: ev
 to red. Filters: event types, new level.
 
 The events already listed when the integration starts for the first time, or when you change its
-configuration, fire nothing: they are not news. What was seen is kept, so a restart fires nothing either.
+configuration, fire nothing: they are not news. What was seen is kept: a restart fires nothing for the events already seen (an event that appeared while the integration was stopped is news).
 At most 20 events fire per refresh.
 
 Variables of both triggers: `event_type` (`earthquake`, `tropical_cyclone`, `flood`, `volcano`,

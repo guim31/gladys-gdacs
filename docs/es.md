@@ -95,7 +95,7 @@ de evento, nivel de alerta.
 naranja a rojo. Filtros: tipos de evento, nuevo nivel.
 
 Los eventos ya presentes en el primer arranque de la integración, o cuando cambia su configuración, no
-activan nada: no son noticia. Lo que se ha visto se guarda, así que un reinicio tampoco activa nada. Como
+activan nada: no son noticia. Lo que se ha visto se guarda: un reinicio no vuelve a activar nada para los eventos ya vistos (un evento aparecido durante la parada es noticia). Como
 máximo 20 eventos por actualización.
 
 Variables de ambos disparadores: `event_type` (`earthquake`, `tropical_cyclone`, `flood`, `volcano`,

@@ -96,8 +96,7 @@ l'avez choisi. Filtres : types d'événements, niveau d'alerte.
 rouge, ou de l'orange au rouge. Filtres : types d'événements, nouveau niveau.
 
 Les événements déjà présents au tout premier démarrage de l'intégration, ou quand vous changez sa
-configuration, ne déclenchent rien : ce ne sont pas des nouvelles. Ce qui a été vu est gardé : un
-redémarrage ne déclenche rien non plus. 20 événements au plus par mise à jour.
+configuration, ne déclenchent rien : ce ne sont pas des nouvelles. Ce qui a été vu est gardé : un redémarrage ne redéclenche rien pour les événements déjà vus (un événement apparu pendant l'arrêt est une nouvelle). 20 événements au plus par mise à jour.
 
 Variables des deux déclencheurs : `event_type` (`earthquake`, `tropical_cyclone`, `flood`, `volcano`,
 `drought`, `wildfire`), `level` (`green`, `orange`, `red`), `event_type_name` et `level_name` (en toutes
