@@ -16,8 +16,8 @@ its only runtime dependency. It started from the official JavaScript template.
 ```bash
 npm install
 npm test                                  # node --test, the built-in runner
-node --test test/devices.test.js          # one file
-node --test --test-name-pattern "plug"    # tests whose name matches
+node --test test/monitor.test.js          # one file
+node --test --test-name-pattern "raised"  # tests whose name matches
 npm run lint                              # ESLint
 npm run format:check                      # Prettier, as the CI runs it
 npm run format                            # Prettier, fix in place
@@ -32,15 +32,20 @@ pushing.
 
 ```
 index.js                          SDK wiring only: handlers registered before connect()
-src/devices/index.js              registry of the device blueprints + dispatch helpers
-src/devices/<type>.js             one device type per file (buildDevice, onPoll, onSetValue...)
-src/scenes.js                     scene action handlers (manifest `scene_actions`)
-src/widgets.js                    dashboard widget handlers (manifest `widgets`)
+src/app.js                        registers every SDK handler on a GladysIntegration (or the fake)
+src/monitor.js                    refresh cycle: GDACS → followed area → states, scene triggers
+src/gdacs.js                      GDACS event API client (search, paging, 204, parsing)
+src/device.js                     the one device: external ids, feature names, buildDevice
+src/actions.js                    scene action `read_alerts`, configuration action `check_now`
+src/widgets.js                    dashboard widget `alerts` (card-list)
+src/messages.js                   texts of the container in en/fr/de/es, number and date formats
 src/config.js                     DEFAULT_CONFIG (mirrors the manifest defaults) + normalization
-src/weather.js                    example driver (Open-Meteo)
+src/geo.js                        great-circle distance
+src/store.js                      /data/gdacs.json: events already seen (atomic writes)
 gladys-assistant-integration.json manifest: name, config_schema, actions, image...
-docs/en.md, docs/fr.md            user documentation, re-hosted by Gladys (mandatory)
-test/                             node --test, against the SDK's fake Gladys (integration-sdk/testing)
+docs/{en,fr,de,es}.md             user documentation, re-hosted by Gladys (en and fr mandatory)
+test/                             node --test, against the SDK's fake Gladys and a fake GDACS
+test/fixtures/gdacs/              real GDACS events recorded on 15/10/2026 (12 events, 6 types)
 .github/scripts/release.mjs       release helpers (manifest bump, changelog), tested in test/
 ```
 
@@ -70,8 +75,9 @@ test/                             node --test, against the SDK's fake Gladys (in
   `type: "provider"`: 5.1.0). `test/manifest.test.js` ties the manifest to the
   code (defaults, action, scene and widget handlers): change both sides
   together.
-- **User-facing text** is bilingual (English and French): action messages,
-  manifest texts, and `docs/en.md` / `docs/fr.md`, kept in sync.
+- **User-facing text** exists in English, French, German ("du") and Spanish
+  ("usted"): manifest, messages, feature names, widget, and `docs/*.md` with the
+  same sections. `test/i18n.test.js` enforces it.
 - **Style.** Prettier formats, ESLint catches mistakes. Comments explain why,
   in English. Tests never touch the network.
 
@@ -233,3 +239,30 @@ long, et sur un « Sie »/« Ihr… » de politesse en allemand. Le store exige 
 - Docs `en`, `fr`, `de`, `es` avec les mêmes sections.
 - Chauffe, ouverture, sécurité : ne rien rendre pilotable « comme un thermostat » ou par un assistant
   vocal quand une erreur serait dangereuse (leçon d'OctoPrint).
+
+## GDACS (cette intégration)
+
+- **API** : `https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?eventlist=EQ;TC;…&alertlevel=Green;Orange;Red&fromDate=…&toDate=…&pagesize=100&pagenumber=N`,
+  GeoJSON, sans clé, du plus récent au plus ancien. `EVENTS4APP` est **tronqué à 100 événements** (aucune
+  sécheresse ni volcan le 15/10/2026) : ne pas s'en servir. Une page vide répond **HTTP 204 sans corps**.
+- La fenêtre `fromDate`/`toDate` filtre sur le **`todate`** de l'événement (chevauchement), pas sur sa date
+  de début. Un événement reste `iscurrent: "true"` environ 4 jours après son dernier `todate`, sauf les
+  sécheresses, mises à jour par décade (`todate` jusqu'à 10 jours en arrière) : deux recherches, 5 jours pour
+  les aléas, 14 jours pour `DR`. Mesuré le 15/10/2026 au niveau vert : 272 événements en cours (179 feux de
+  forêt), 5 requêtes par cycle.
+- `alertlevel` = niveau global de l'événement (celui de la carte GDACS) ; `episodealertlevel` = niveau de
+  l'épisode courant, souvent plus bas (SIMON-26 : orange / vert). On suit `alertlevel`.
+- Les dates sont en UTC **sans `Z`**. `country` et `name` d'une sécheresse finissent par `, ` et listent
+  jusqu'à 29 pays : nettoyés, puis abrégés (`Austria, Belgium +27`). `affectedcountries` donne `iso2` et
+  `iso3` : le réglage Pays accepte les deux.
+- Sévérité : séisme `M` (magnitude), cyclone `km/h` (vent max), feu `ha`, sécheresse `km2` ; inondation
+  « Magnitude 0 » (inutilisable), volcan vide.
+- Le point d'une sécheresse est le centroïde d'une zone immense (Europe-2026 en Bavière, touchant la
+  France) : d'où le réglage Pays.
+- Distance sans événement : `NO_EVENT_KM` = 20 038 km (demi-circonférence), pour qu'une condition « < X km »
+  reste fausse. Sans centre (maison non localisée, pas de coordonnées), la distance n'est pas publiée.
+- Déclencheurs : un événement absent de `known` (persisté) est « nouveau » ; le premier cycle après le tout
+  premier démarrage ou un changement de configuration **amorce** sans rien déclencher. Une entrée de `known`
+  est oubliée 3 jours après la dernière fois que GDACS l'a listée. 20 événements de scène au plus par cycle.
+- Conditions d'utilisation : https://www.gdacs.org/About/termofuse.aspx (pas `termsofuse`, 404). Aucun
+  quota publié ; citer la source (politique de réutilisation de la Commission européenne).

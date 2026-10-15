@@ -1,61 +1,159 @@
-# Demo Devices Template
+# GDACS
 
-This is the user documentation of the integration. Gladys re-hosts this file
-and shows a permanent **Documentation** link to it in the Configuration screen
-(in the user's language, with English as the fallback) — it is when
-configuring that the user needs it most. Keep the short onboarding hints in
-the `section` blocks of the manifest `config_schema`; put the long
-step-by-step (screenshots, troubleshooting…) here.
+Follow the major natural disasters of the world from Gladys: earthquakes, tropical cyclones, floods,
+volcanic eruptions, droughts and forest fires, as rated by
+[GDACS](https://www.gdacs.org) (Global Disaster Awareness and Coordination System, a cooperation of the
+United Nations and the European Commission). Each event gets a green, orange or red alert level,
+according to its expected humanitarian impact.
+
+The integration keeps the events of **your area**: a radius around your house, the countries you choose,
+and, if you wish, every red alert in the world (family abroad, travels). No account, no API key.
+
+This is a complement, not a safety alert system: in an emergency, follow the instructions of your local
+authorities. Not affiliated with GDACS, the European Commission or the United Nations.
 
 ## What you get
 
-Six demo devices show up after installation: a weather station (real data
-from Open-Meteo), a switch, a dimmable light, a smart plug with power
-metering, a motion sensor and a camera.
+- A **GDACS alerts** device: number of active alerts in your area, highest alert level, latest event (in
+  words) and distance of the nearest event, with their history.
+- A **dashboard widget** listing the current alerts, highest level first, then nearest, each with its
+  GDACS report.
+- Two **scene triggers**: a new event in your area, and the alert level of an event raised.
+- A **scene action** that reads the current alerts as one sentence, to send by message or have it read
+  aloud.
+
+## Requirements
+
+- Gladys Assistant 5.1 or later.
+- Internet access from the Gladys host (the integration reads `www.gdacs.org`).
+- For the radius around your house: a location for your house in Gladys (Settings → Houses), or
+  coordinates typed in the configuration.
 
 ## Configuration
 
-1. Open the **Configuration** tab of the integration.
-2. Set the **latitude** and **longitude** the demo weather station should
-   observe (they default to Paris), and pick your temperature unit.
-   The **refresh interval** sets how often the weather station and the
-   plug's power are read: every 5 minutes by default, every minute at most.
-3. Save: the devices appear in the **Discovery** tab, ready to be added.
+### Settings
 
-The **Prefer the local connection** toggle drives the demo plug: it reports
-the channel it actually uses as a badge (local or cloud), with an orange dot
-when it runs degraded (local refused, cloud fallback).
+| Setting                       | What it does                                                                                                |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Centre latitude and longitude | Centre of the area. Leave both empty to use the location of your house in Gladys. Decimal comma accepted.   |
+| Radius                        | 100 to 5,000 km around the centre (1,000 km by default).                                                    |
+| Countries                     | ISO codes (`FR` or `FRA`, separated by commas): the events touching these countries, wherever their centre. |
+| Event types                   | The hazards to follow (all six by default).                                                                 |
+| Minimum alert level           | Green (by default), orange or red.                                                                          |
+| Red alerts of the whole world | Also follow every red alert, wherever it is (off by default).                                               |
+| Refresh interval              | 10, 15 (by default), 30 or 60 minutes.                                                                      |
+| Language of the texts         | Names of the features (at their creation) and texts sent to the scenes. French by default.                  |
 
-## Actions
+Save, then open the **Discover** tab of the integration and create the **GDACS alerts** device. The
+**Show the current alerts** button of the configuration lists the alerts of your area right away: a quick
+way to check the settings.
 
-- **Test the weather provider** — performs a live request to Open-Meteo and
-  shows the current temperature and humidity under the button.
-- **Identify a device** — pick one of your devices in the list and it will
-  signal itself (the demo light "blinks" in the logs).
+### The followed area
 
-## Scenes
+An event is followed when it is current on GDACS, of a chosen type, at the minimum level or above, and:
 
-The integration adds its own cards to the scene editor (Gladys 5.1 or
-later), under the **Integrations** category:
+- its point is within the radius of the centre. The point is the one GDACS gives: the epicentre of an
+  earthquake, the current position of a cyclone, the centre of a flood, a drought or a fire;
+- or it touches one of the chosen countries (the list of affected countries GDACS publishes);
+- or it is a red alert and "Red alerts of the whole world" is on.
 
-- **Motion detected** (trigger) — starts the scene when a demo motion sensor
-  sees something move. Optionally pick the sensor and what moved (person,
-  animal); left empty, any detection matches. The following actions can
-  read what moved with `{{triggerEvent.data.target}}`.
-- **Identify a device** (action) — makes the chosen device signal itself.
-  It returns whether the device could signal itself, so the following
-  actions can depend on it.
+A drought or a flood can cover thousands of kilometres: its centre may be far from you while your
+country is affected. Add your country to the **Countries** setting to catch them.
 
-## Dashboard
+GDACS levels: **green**, a limited event, no international assistance expected; **orange**, assistance may
+be needed; **red**, a major disaster. Green does not mean "nothing happened": a magnitude 4.5 earthquake
+near your home is green.
 
-Add the **Demo status** widget to a dashboard: it shows the live
-temperature of the weather station and the power of the office plug, the
-connection the plug currently uses (orange when degraded) and the observed
-location. Its **Identify the light** button makes the demo light signal
-itself.
+## Device
+
+| Feature                | Type          | Value                                                                                           |
+| ---------------------- | ------------- | ----------------------------------------------------------------------------------------------- |
+| Active alerts          | Counter       | Number of followed events                                                                       |
+| Highest alert level    | Risk          | 0 no alert, 1 green, 2 orange, 3 red (the Gladys risk badge, one step up from the GDACS colour) |
+| Latest event           | Text          | The newest event, e.g. `Orange · Tropical cyclone SIMON-26 250 km/h · México · 3,279 km`        |
+| Nearest event distance | Distance (km) | Distance to the nearest followed event; 20,038 km (the farthest a point can be) without any     |
+
+Without a centre (no house location and no coordinates), the distance is not published. The values are
+read in the container every refresh interval: the device is not polled by Gladys.
+
+## Dashboard widget
+
+**GDACS alerts**: a heading with the number of alerts, then up to 8 events, highest level first, then
+nearest. Each row shows the type and magnitude, the country and the distance, and the level as a badge.
+Tap a row to see the GDACS description of the event, its dates and the link to its GDACS report. The
+footer gives the source and the time of the last reading, and a link to gdacs.org.
+
+## Scene triggers
+
+**GDACS: new event in my area** fires when an event enters the followed area for the first time: a new
+earthquake, a cyclone moving closer, a red alert anywhere if chosen. Filters: event types, alert level.
+
+**GDACS: alert level raised** fires when a followed event goes from green to orange or red, or from orange
+to red. Filters: event types, new level.
+
+The events already listed when the integration starts for the first time, or when you change its
+configuration, fire nothing: they are not news. What was seen is kept: a restart fires nothing for the events already seen (an event that appeared while the integration was stopped is news).
+At most 20 events fire per refresh.
+
+Variables of both triggers: `event_type` (`earthquake`, `tropical_cyclone`, `flood`, `volcano`,
+`drought`, `wildfire`), `level` (`green`, `orange`, `red`), `event_type_name` and `level_name` (in
+words), `name` (type and magnitude), `country`, `distance_km`, `summary` (one line, like the Latest event
+feature) and `url` (GDACS report). The level trigger adds `previous_level` and `previous_level_name`.
+
+## Scene action
+
+**GDACS: read the current alerts** reads GDACS again if the last reading is older than the refresh
+interval, then returns:
+
+- `text`: the alerts in one sentence, e.g. `2 GDACS alerts: Orange · Tropical cyclone SIMON-26 250 km/h
+in México, 3,279 km away; Green · Earthquake M4.5 in Panama, 182 km away.` (5 events at most, then "and
+  N more");
+- `count`: the number of alerts;
+- `max_level`: `none`, `green`, `orange` or `red`.
+
+## Scene examples
+
+- **Message when a big event is near**: trigger "GDACS: new event in my area" filtered on orange and red,
+  action "Send a message" with `{{triggerEvent.data.summary}}` and `{{triggerEvent.data.url}}`.
+- **Morning briefing**: every day at 7:30, "GDACS: read the current alerts", then "Send a message" with its
+  `text`, only if `count` is above 0.
+- **Family abroad**: turn on "Red alerts of the whole world", and send a message on every new red event:
+  `{{triggerEvent.data.level_name}} alert: {{triggerEvent.data.name}} in {{triggerEvent.data.country}}`.
+- **A light in the hallway**: when "Highest alert level" goes to 2 or more, turn a lamp orange.
+
+## Data sources, terms and quotas
+
+- Data © GDACS (European Commission JRC and ECHO, UN OCHA and UNOSAT), read from the public GDACS event
+  API, without an account. The source is cited in the widget, as the reuse policy of the European
+  Commission asks.
+- GDACS notifications for earthquakes and cyclones are produced by models, automatically, without human
+  review: they may be wrong, late or incomplete, and the service may be down. They never replace the
+  alerts of local or national authorities, the only ones in charge of warning the population. See the
+  [GDACS terms of use](https://www.gdacs.org/About/termofuse.aspx).
+- Quotas: GDACS publishes none. The integration asks once per refresh interval (15 minutes by default):
+  one search for droughts and one for the other hazards, 100 events per page, 10 pages at most. On
+  15/10/2026, a cycle took 5 requests at the green level (270 current events, forest fires mostly) and 2
+  at the orange level.
 
 ## Troubleshooting
 
-The integration logs everything it does: check the integration logs from the
-Gladys UI (or `docker logs` on the host) with `LOG_LEVEL=debug` for the full
-detail.
+- **"No centre" in the configuration**: give your house a location in Gladys (Settings → Houses), or type
+  coordinates. The countries and the worldwide red alerts still work without it.
+- **"GDACS does not answer"**: the site is down or unreachable from the Gladys host. The last values stay;
+  the integration tries again at every refresh and says so in its logs once.
+- **"GDACS lists too many events"**: more than 1,000 events matched (forest fires at the green level,
+  mostly). Raise the minimum level or uncheck some types.
+- **No trigger after a change of settings**: expected, the events already there are not news.
+- **The names of the features are in the wrong language**: they are set when the device is created. Change
+  the language, delete the device, then create it again from the Discover tab.
+- Logs: the integration page of Gladys, Logs tab. Set `LOG_LEVEL=debug` for a line per reading.
+
+## Limits
+
+- The distance is measured to one point of the event, not to its outline: a large flood or fire may reach
+  you while its centre is beyond the radius. Use the Countries setting for those.
+- GDACS covers the major disasters with a potential international impact, not local hazards (storms,
+  local floods, heat waves): for those, see the official alerts of your country.
+- Country and event names come from GDACS, in English.
+- The tsunami alerts of GDACS are part of its earthquake events; they are not listed apart.
+- Developed and tested against the real GDACS service; feedback on real alerts is welcome on the forum.

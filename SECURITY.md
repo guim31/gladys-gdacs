@@ -30,6 +30,13 @@ Gladys before reporting a problem.
 
 In scope: the code of this repository and the Docker image it publishes.
 
+The integration needs no account and stores no secret. It reads the public GDACS API
+(`www.gdacs.org`, HTTPS, no key) and the houses of Gladys, for the location of the centre of the
+followed area (the `location` access of the manifest). Under `/data` it keeps one file,
+`gdacs.json`: the identifiers and alert levels of the GDACS events already seen, nothing about
+the user. The coordinates of the house or of the configuration are never written to `/data`
+nor to the logs.
+
 Out of scope: Gladys Assistant itself (see its
 [security policy](https://github.com/GladysAssistant/Gladys/security/policy)),
-and the third-party services and devices the integration talks to.
+and the GDACS service.

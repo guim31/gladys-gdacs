@@ -1,177 +1,995 @@
 {
   "manifest_version": 1,
   "type": "device",
-  "name": "Demo Devices Template",
+  "name": "GDACS",
   "description": {
-    "en": "Starter template showing sensors, a switch, a dimmable light and a smart plug.",
-    "fr": "Template de démarrage : capteurs, interrupteur, lampe variable et prise connectée."
+    "en": "Worldwide disaster alerts (earthquakes, cyclones, floods…) near your home, from GDACS.",
+    "fr": "Alertes de catastrophes mondiales (séismes, cyclones, inondations…) près de chez vous, par GDACS.",
+    "de": "Weltweite Katastrophenwarnungen (Erdbeben, Wirbelstürme, Fluten…) nahe deinem Zuhause, von GDACS.",
+    "es": "Alertas de catástrofes mundiales (terremotos, ciclones, inundaciones…) cerca de su casa, por GDACS."
   },
   "version": "1.0.0",
-  "docker_image": "ghcr.io/gladysassistant/integration-template-js:1.0.0",
+  "docker_image": "ghcr.io/guim31/gladys-gdacs:1.0.0",
   "gladys_version": ">=5.1.0",
-  "cover_image": "https://raw.githubusercontent.com/GladysAssistant/integration-template-js/master/cover.png",
-  "categories": ["lighting", "security", "environment"],
-  "transports": ["local", "cloud"],
+  "cover_image": "https://raw.githubusercontent.com/guim31/gladys-gdacs/main/cover.png",
+  "categories": ["environment", "security"],
+  "transports": ["cloud"],
+  "location": true,
   "config_schema": [
     {
       "key": "intro",
       "type": "section",
-      "label": { "en": "Getting started", "fr": "Pour commencer" },
+      "label": {
+        "en": "Your area",
+        "fr": "Votre zone",
+        "de": "Dein Gebiet",
+        "es": "Su zona"
+      },
       "description": {
-        "en": "The demo weather station reads real data from the free Open-Meteo API: pick the coordinates to observe. No account, no API key.",
-        "fr": "La station météo de démonstration lit de vraies données via l'API gratuite Open-Meteo : choisissez les coordonnées à observer. Pas de compte, pas de clé d'API."
+        "en": "GDACS rates the major natural disasters of the world green, orange or red. Choose the area to follow: a radius around your house (or around coordinates), and countries. Save, then create the device in the Discover tab.",
+        "fr": "GDACS classe les grandes catastrophes naturelles du monde en vert, orange ou rouge. Choisissez la zone à suivre : un rayon autour de votre maison (ou de coordonnées), et des pays. Enregistrez, puis créez l'appareil dans l'onglet Découverte.",
+        "de": "GDACS stuft die großen Naturkatastrophen der Welt grün, orange oder rot ein. Wähle das zu verfolgende Gebiet: einen Radius um dein Haus (oder um Koordinaten) und Länder. Speichere und lege dann das Gerät im Tab „Entdecken“ an.",
+        "es": "GDACS clasifica las grandes catástrofes naturales del mundo en verde, naranja o rojo. Elija la zona que desea seguir: un radio alrededor de su casa (o de unas coordenadas) y países. Guarde y cree el dispositivo en la pestaña Descubrir."
       },
       "links": [
         {
-          "url": "https://open-meteo.com/en/docs",
-          "label": { "en": "Open-Meteo documentation", "fr": "Documentation Open-Meteo" }
+          "url": "https://github.com/guim31/gladys-gdacs/blob/main/docs/en.md",
+          "label": {
+            "en": "Setup guide",
+            "fr": "Guide d'installation",
+            "de": "Installationsanleitung",
+            "es": "Guía de instalación"
+          }
+        }
+      ]
+    },
+    {
+      "key": "about",
+      "type": "section",
+      "label": {
+        "en": "Sources and limits",
+        "fr": "Sources et limites",
+        "de": "Quellen und Grenzen",
+        "es": "Fuentes y límites"
+      },
+      "description": {
+        "en": "Data © GDACS (European Commission JRC, UN OCHA), read without an account. A complement, not a safety alert system: follow the instructions of your local authorities. Not affiliated with GDACS.",
+        "fr": "Données © GDACS (Commission européenne JRC, ONU OCHA), lues sans compte. Un complément, pas un système d'alerte de sécurité : suivez les consignes des autorités locales. Non affiliée à GDACS.",
+        "de": "Daten © GDACS (Europäische Kommission JRC, UN OCHA), ohne Konto gelesen. Eine Ergänzung, kein Sicherheitswarnsystem: Befolge die Anweisungen deiner örtlichen Behörden. Nicht mit GDACS verbunden.",
+        "es": "Datos © GDACS (Comisión Europea JRC, ONU OCHA), leídos sin cuenta. Un complemento, no un sistema de alerta de seguridad: siga las instrucciones de sus autoridades locales. Sin afiliación con GDACS."
+      },
+      "links": [
+        {
+          "url": "https://www.gdacs.org",
+          "label": {
+            "en": "GDACS website",
+            "fr": "Site GDACS",
+            "de": "Website von GDACS",
+            "es": "Sitio web de GDACS"
+          }
+        },
+        {
+          "url": "https://www.gdacs.org/About/termofuse.aspx",
+          "label": {
+            "en": "GDACS terms of use",
+            "fr": "Conditions d'utilisation GDACS",
+            "de": "Nutzungsbedingungen von GDACS",
+            "es": "Condiciones de uso de GDACS"
+          }
         }
       ]
     },
     {
       "key": "latitude",
-      "type": "number",
-      "label": { "en": "Latitude", "fr": "Latitude" },
-      "description": {
-        "en": "Latitude used for the demo weather sensor.",
-        "fr": "Latitude utilisée par le capteur météo de démonstration."
+      "type": "string",
+      "label": {
+        "en": "Centre latitude",
+        "fr": "Latitude du centre",
+        "de": "Breitengrad des Mittelpunkts",
+        "es": "Latitud del centro"
       },
-      "placeholder": { "en": "e.g. 48.8566", "fr": "ex. 48.8566" },
-      "required": true,
-      "default": 48.8566,
-      "min": -90,
-      "max": 90
+      "description": {
+        "en": "Leave both coordinates empty to use the location of your house in Gladys.",
+        "fr": "Laissez les deux coordonnées vides pour utiliser la position de votre maison dans Gladys.",
+        "de": "Lass beide Koordinaten leer, um den Standort deines Hauses in Gladys zu verwenden.",
+        "es": "Deje ambas coordenadas vacías para usar la ubicación de su casa en Gladys."
+      },
+      "placeholder": {
+        "en": "e.g. 43.6045",
+        "fr": "ex. 43,6045",
+        "de": "z. B. 43.6045",
+        "es": "p. ej. 43.6045"
+      },
+      "required": false,
+      "default": ""
     },
     {
       "key": "longitude",
-      "type": "number",
-      "label": { "en": "Longitude", "fr": "Longitude" },
-      "description": {
-        "en": "Longitude used for the demo weather sensor.",
-        "fr": "Longitude utilisée par le capteur météo de démonstration."
+      "type": "string",
+      "label": {
+        "en": "Centre longitude",
+        "fr": "Longitude du centre",
+        "de": "Längengrad des Mittelpunkts",
+        "es": "Longitud del centro"
       },
-      "placeholder": { "en": "e.g. 2.3522", "fr": "ex. 2.3522" },
-      "required": true,
-      "default": 2.3522,
-      "min": -180,
-      "max": 180
+      "description": {
+        "en": "Decimal degrees, east positive.",
+        "fr": "Degrés décimaux, positifs à l'est.",
+        "de": "Dezimalgrad, Osten positiv.",
+        "es": "Grados decimales, positivos al este."
+      },
+      "placeholder": {
+        "en": "e.g. 1.4440",
+        "fr": "ex. 1,4440",
+        "de": "z. B. 1.4440",
+        "es": "p. ej. 1.4440"
+      },
+      "required": false,
+      "default": ""
     },
     {
-      "key": "unit",
+      "key": "radius",
       "type": "select",
-      "label": { "en": "Temperature unit", "fr": "Unité de température" },
+      "label": {
+        "en": "Radius",
+        "fr": "Rayon",
+        "de": "Radius",
+        "es": "Radio"
+      },
+      "description": {
+        "en": "Distance from the centre to the point GDACS gives: the epicentre, the position of a cyclone, the centre of a flood, a drought or a fire.",
+        "fr": "Distance du centre au point que donne GDACS : l'épicentre, la position d'un cyclone, le centre d'une inondation, d'une sécheresse ou d'un feu.",
+        "de": "Entfernung vom Mittelpunkt zu dem Punkt, den GDACS angibt: das Epizentrum, die Position eines Wirbelsturms, die Mitte einer Flut, Dürre oder eines Brandes.",
+        "es": "Distancia del centro al punto que indica GDACS: el epicentro, la posición de un ciclón, el centro de una inundación, sequía o incendio."
+      },
       "required": false,
-      "default": "celsius",
+      "default": "1000",
       "options": [
-        { "value": "celsius", "label": { "en": "Celsius", "fr": "Celsius" } },
-        { "value": "fahrenheit", "label": { "en": "Fahrenheit", "fr": "Fahrenheit" } }
+        {
+          "value": "100",
+          "label": {
+            "en": "100 km",
+            "fr": "100 km",
+            "de": "100 km",
+            "es": "100 km"
+          }
+        },
+        {
+          "value": "250",
+          "label": {
+            "en": "250 km",
+            "fr": "250 km",
+            "de": "250 km",
+            "es": "250 km"
+          }
+        },
+        {
+          "value": "500",
+          "label": {
+            "en": "500 km",
+            "fr": "500 km",
+            "de": "500 km",
+            "es": "500 km"
+          }
+        },
+        {
+          "value": "1000",
+          "label": {
+            "en": "1 000 km",
+            "fr": "1 000 km",
+            "de": "1 000 km",
+            "es": "1 000 km"
+          }
+        },
+        {
+          "value": "2000",
+          "label": {
+            "en": "2 000 km",
+            "fr": "2 000 km",
+            "de": "2 000 km",
+            "es": "2 000 km"
+          }
+        },
+        {
+          "value": "5000",
+          "label": {
+            "en": "5 000 km",
+            "fr": "5 000 km",
+            "de": "5 000 km",
+            "es": "5 000 km"
+          }
+        }
       ]
     },
     {
-      "key": "poll_frequency",
-      "type": "number",
-      "label": { "en": "Refresh interval (s)", "fr": "Intervalle de rafraîchissement (s)" },
+      "key": "countries",
+      "type": "string",
+      "label": {
+        "en": "Countries",
+        "fr": "Pays",
+        "de": "Länder",
+        "es": "Países"
+      },
       "description": {
-        "en": "How often sensors are polled, in seconds (one minute minimum).",
-        "fr": "Fréquence d'interrogation des capteurs, en secondes (une minute minimum)."
+        "en": "Also follow the events touching these countries, wherever their centre: ISO codes separated by commas (FR or FRA). Useful for droughts and floods, which cover large areas.",
+        "fr": "Suivre aussi les événements qui touchent ces pays, où que soit leur centre : codes ISO séparés par des virgules (FR ou FRA). Utile pour les sécheresses et les inondations, très étendues.",
+        "de": "Verfolge auch die Ereignisse, die diese Länder betreffen, egal wo ihr Mittelpunkt liegt: ISO-Codes durch Kommas getrennt (DE oder DEU). Nützlich für Dürren und Fluten, die große Gebiete betreffen.",
+        "es": "Seguir también los eventos que afectan a estos países, esté donde esté su centro: códigos ISO separados por comas (ES o ESP). Útil para sequías e inundaciones, muy extensas."
+      },
+      "placeholder": {
+        "en": "e.g. FR, ES, PT",
+        "fr": "ex. FR, ES, PT",
+        "de": "z. B. DE, AT, CH",
+        "es": "p. ej. ES, FR, PT"
       },
       "required": false,
-      "default": 300,
-      "min": 60,
-      "max": 3600
-    }
-  ],
-  "actions": [
-    {
-      "key": "test_weather",
-      "label": { "en": "Test the weather provider", "fr": "Tester le fournisseur météo" },
-      "timeout_seconds": 30
+      "default": ""
     },
     {
-      "key": "identify",
-      "label": { "en": "Identify a device", "fr": "Identifier un appareil" },
-      "fields": [
+      "key": "event_types",
+      "type": "multi_select",
+      "label": {
+        "en": "Event types",
+        "fr": "Types d'événements",
+        "de": "Ereignistypen",
+        "es": "Tipos de evento"
+      },
+      "required": false,
+      "default": ["earthquake", "tropical_cyclone", "flood", "volcano", "drought", "wildfire"],
+      "options": [
         {
-          "key": "device",
-          "type": "select",
-          "source": "devices",
-          "label": { "en": "Device", "fr": "Appareil" },
-          "required": true
+          "value": "earthquake",
+          "label": {
+            "en": "Earthquake",
+            "fr": "Séisme",
+            "de": "Erdbeben",
+            "es": "Terremoto"
+          }
+        },
+        {
+          "value": "tropical_cyclone",
+          "label": {
+            "en": "Tropical cyclone",
+            "fr": "Cyclone tropical",
+            "de": "Tropischer Wirbelsturm",
+            "es": "Ciclón tropical"
+          }
+        },
+        {
+          "value": "flood",
+          "label": {
+            "en": "Flood",
+            "fr": "Inondation",
+            "de": "Überschwemmung",
+            "es": "Inundación"
+          }
+        },
+        {
+          "value": "volcano",
+          "label": {
+            "en": "Volcanic eruption",
+            "fr": "Éruption volcanique",
+            "de": "Vulkanausbruch",
+            "es": "Erupción volcánica"
+          }
+        },
+        {
+          "value": "drought",
+          "label": {
+            "en": "Drought",
+            "fr": "Sécheresse",
+            "de": "Dürre",
+            "es": "Sequía"
+          }
+        },
+        {
+          "value": "wildfire",
+          "label": {
+            "en": "Forest fire",
+            "fr": "Feu de forêt",
+            "de": "Waldbrand",
+            "es": "Incendio forestal"
+          }
+        }
+      ]
+    },
+    {
+      "key": "min_level",
+      "type": "select",
+      "label": {
+        "en": "Minimum alert level",
+        "fr": "Niveau d'alerte minimal",
+        "de": "Mindestwarnstufe",
+        "es": "Nivel de alerta mínimo"
+      },
+      "description": {
+        "en": "Green: minor event, no international help expected. Orange: help may be needed. Red: major disaster.",
+        "fr": "Vert : événement limité, sans aide internationale attendue. Orange : une aide peut être nécessaire. Rouge : catastrophe majeure.",
+        "de": "Grün: begrenztes Ereignis, keine internationale Hilfe erwartet. Orange: Hilfe kann nötig sein. Rot: schwere Katastrophe.",
+        "es": "Verde: evento limitado, sin ayuda internacional prevista. Naranja: puede necesitarse ayuda. Rojo: catástrofe grave."
+      },
+      "required": false,
+      "default": "green",
+      "options": [
+        {
+          "value": "green",
+          "label": {
+            "en": "Green",
+            "fr": "Vert",
+            "de": "Grün",
+            "es": "Verde"
+          }
+        },
+        {
+          "value": "orange",
+          "label": {
+            "en": "Orange",
+            "fr": "Orange",
+            "de": "Orange",
+            "es": "Naranja"
+          }
+        },
+        {
+          "value": "red",
+          "label": {
+            "en": "Red",
+            "fr": "Rouge",
+            "de": "Rot",
+            "es": "Rojo"
+          }
+        }
+      ]
+    },
+    {
+      "key": "worldwide_red",
+      "type": "boolean",
+      "label": {
+        "en": "Red alerts of the whole world",
+        "fr": "Alertes rouges du monde entier",
+        "de": "Rote Warnungen der ganzen Welt",
+        "es": "Alertas rojas de todo el mundo"
+      },
+      "description": {
+        "en": "Also follow every red alert, wherever it is: family abroad, travels.",
+        "fr": "Suivre aussi toutes les alertes rouges, où qu'elles soient : famille à l'étranger, voyages.",
+        "de": "Verfolge auch jede rote Warnung, wo auch immer: Familie im Ausland, Reisen.",
+        "es": "Seguir también todas las alertas rojas, estén donde estén: familia en el extranjero, viajes."
+      },
+      "required": false,
+      "default": false
+    },
+    {
+      "key": "refresh_interval",
+      "type": "select",
+      "label": {
+        "en": "Refresh interval",
+        "fr": "Fréquence de mise à jour",
+        "de": "Aktualisierungsintervall",
+        "es": "Intervalo de actualización"
+      },
+      "description": {
+        "en": "GDACS publishes an earthquake about 20 minutes after it, and updates cyclones every 6 hours.",
+        "fr": "GDACS publie un séisme une vingtaine de minutes après, et met à jour les cyclones toutes les 6 heures.",
+        "de": "GDACS veröffentlicht ein Erdbeben etwa 20 Minuten danach und aktualisiert Wirbelstürme alle 6 Stunden.",
+        "es": "GDACS publica un terremoto unos 20 minutos después y actualiza los ciclones cada 6 horas."
+      },
+      "required": false,
+      "default": "15",
+      "options": [
+        {
+          "value": "10",
+          "label": {
+            "en": "10 minutes",
+            "fr": "10 minutes",
+            "de": "10 Minuten",
+            "es": "10 minutos"
+          }
+        },
+        {
+          "value": "15",
+          "label": {
+            "en": "15 minutes",
+            "fr": "15 minutes",
+            "de": "15 Minuten",
+            "es": "15 minutos"
+          }
+        },
+        {
+          "value": "30",
+          "label": {
+            "en": "30 minutes",
+            "fr": "30 minutes",
+            "de": "30 Minuten",
+            "es": "30 minutos"
+          }
+        },
+        {
+          "value": "60",
+          "label": {
+            "en": "60 minutes",
+            "fr": "60 minutes",
+            "de": "60 Minuten",
+            "es": "60 minutos"
+          }
+        }
+      ]
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "label": {
+        "en": "Language of the texts",
+        "fr": "Langue des textes",
+        "de": "Sprache der Texte",
+        "es": "Idioma de los textos"
+      },
+      "description": {
+        "en": "Names of the features (at their creation) and texts sent to the scenes.",
+        "fr": "Noms des fonctionnalités (à leur création) et textes envoyés aux scènes.",
+        "de": "Namen der Funktionen (bei ihrer Erstellung) und Texte für die Szenen.",
+        "es": "Nombres de las funciones (al crearlas) y textos enviados a las escenas."
+      },
+      "required": false,
+      "default": "fr",
+      "options": [
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "Anglais",
+            "de": "Englisch",
+            "es": "Inglés"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "French",
+            "fr": "Français",
+            "de": "Französisch",
+            "es": "Francés"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "German",
+            "fr": "Allemand",
+            "de": "Deutsch",
+            "es": "Alemán"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Spanish",
+            "fr": "Espagnol",
+            "de": "Spanisch",
+            "es": "Español"
+          }
         }
       ]
     }
   ],
+  "actions": [
+    {
+      "key": "check_now",
+      "label": {
+        "en": "Show the current alerts",
+        "fr": "Afficher les alertes en cours",
+        "de": "Aktuelle Warnungen anzeigen",
+        "es": "Mostrar las alertas actuales"
+      },
+      "timeout_seconds": 60
+    }
+  ],
   "scene_triggers": [
     {
-      "key": "motion_detected",
-      "label": { "en": "Motion detected", "fr": "Mouvement détecté" },
+      "key": "new_event",
+      "label": {
+        "en": "GDACS: new event in my area",
+        "fr": "GDACS : nouvel événement dans ma zone",
+        "de": "GDACS: neues Ereignis in meinem Gebiet",
+        "es": "GDACS: nuevo evento en mi zona"
+      },
       "description": {
-        "en": "A demo motion sensor saw a person or an animal move.",
-        "fr": "Un détecteur de démonstration a vu bouger une personne ou un animal."
+        "en": "A disaster rated by GDACS enters the followed area (or a red alert anywhere, if chosen).",
+        "fr": "Une catastrophe classée par GDACS entre dans la zone suivie (ou une alerte rouge n'importe où, si choisi).",
+        "de": "Eine von GDACS eingestufte Katastrophe tritt in das verfolgte Gebiet ein (oder eine rote Warnung irgendwo, falls gewählt).",
+        "es": "Una catástrofe clasificada por GDACS entra en la zona seguida (o una alerta roja en cualquier lugar, si se eligió)."
       },
       "fields": [
         {
-          "key": "device",
-          "type": "select",
-          "source": "devices",
-          "label": { "en": "Sensor", "fr": "Détecteur" }
+          "key": "event_type",
+          "type": "multi_select",
+          "label": {
+            "en": "Event types",
+            "fr": "Types d'événements",
+            "de": "Ereignistypen",
+            "es": "Tipos de evento"
+          },
+          "options": [
+            {
+              "value": "earthquake",
+              "label": {
+                "en": "Earthquake",
+                "fr": "Séisme",
+                "de": "Erdbeben",
+                "es": "Terremoto"
+              }
+            },
+            {
+              "value": "tropical_cyclone",
+              "label": {
+                "en": "Tropical cyclone",
+                "fr": "Cyclone tropical",
+                "de": "Tropischer Wirbelsturm",
+                "es": "Ciclón tropical"
+              }
+            },
+            {
+              "value": "flood",
+              "label": {
+                "en": "Flood",
+                "fr": "Inondation",
+                "de": "Überschwemmung",
+                "es": "Inundación"
+              }
+            },
+            {
+              "value": "volcano",
+              "label": {
+                "en": "Volcanic eruption",
+                "fr": "Éruption volcanique",
+                "de": "Vulkanausbruch",
+                "es": "Erupción volcánica"
+              }
+            },
+            {
+              "value": "drought",
+              "label": {
+                "en": "Drought",
+                "fr": "Sécheresse",
+                "de": "Dürre",
+                "es": "Sequía"
+              }
+            },
+            {
+              "value": "wildfire",
+              "label": {
+                "en": "Forest fire",
+                "fr": "Feu de forêt",
+                "de": "Waldbrand",
+                "es": "Incendio forestal"
+              }
+            }
+          ]
         },
         {
-          "key": "target",
+          "key": "level",
           "type": "multi_select",
-          "label": { "en": "What moved", "fr": "Ce qui a bougé" },
+          "label": {
+            "en": "Alert level",
+            "fr": "Niveau d'alerte",
+            "de": "Warnstufe",
+            "es": "Nivel de alerta"
+          },
           "options": [
-            { "value": "person", "label": { "en": "Person", "fr": "Personne" } },
-            { "value": "animal", "label": { "en": "Animal", "fr": "Animal" } }
+            {
+              "value": "green",
+              "label": {
+                "en": "Green",
+                "fr": "Vert",
+                "de": "Grün",
+                "es": "Verde"
+              }
+            },
+            {
+              "value": "orange",
+              "label": {
+                "en": "Orange",
+                "fr": "Orange",
+                "de": "Orange",
+                "es": "Naranja"
+              }
+            },
+            {
+              "value": "red",
+              "label": {
+                "en": "Red",
+                "fr": "Rouge",
+                "de": "Rot",
+                "es": "Rojo"
+              }
+            }
           ]
         }
       ],
       "variables": [
         {
-          "key": "target",
+          "key": "event_type",
           "type": "string",
-          "label": { "en": "What moved", "fr": "Ce qui a bougé" }
+          "label": {
+            "en": "Event type (earthquake, flood…)",
+            "fr": "Type d'événement (earthquake, flood…)",
+            "de": "Ereignistyp (earthquake, flood…)",
+            "es": "Tipo de evento (earthquake, flood…)"
+          }
+        },
+        {
+          "key": "level",
+          "type": "string",
+          "label": {
+            "en": "Level (green, orange, red)",
+            "fr": "Niveau (green, orange, red)",
+            "de": "Stufe (green, orange, red)",
+            "es": "Nivel (green, orange, red)"
+          }
+        },
+        {
+          "key": "event_type_name",
+          "type": "string",
+          "label": {
+            "en": "Event type, in words",
+            "fr": "Type d'événement, en toutes lettres",
+            "de": "Ereignistyp, ausgeschrieben",
+            "es": "Tipo de evento, en palabras"
+          }
+        },
+        {
+          "key": "level_name",
+          "type": "string",
+          "label": {
+            "en": "Level, in words",
+            "fr": "Niveau, en toutes lettres",
+            "de": "Stufe, ausgeschrieben",
+            "es": "Nivel, en palabras"
+          }
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "label": {
+            "en": "Event and magnitude",
+            "fr": "Événement et ampleur",
+            "de": "Ereignis und Stärke",
+            "es": "Evento y magnitud"
+          }
+        },
+        {
+          "key": "country",
+          "type": "string",
+          "label": {
+            "en": "Countries",
+            "fr": "Pays",
+            "de": "Länder",
+            "es": "Países"
+          }
+        },
+        {
+          "key": "distance_km",
+          "type": "number",
+          "label": {
+            "en": "Distance (km)",
+            "fr": "Distance (km)",
+            "de": "Entfernung (km)",
+            "es": "Distancia (km)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          }
+        },
+        {
+          "key": "url",
+          "type": "string",
+          "label": {
+            "en": "GDACS report",
+            "fr": "Rapport GDACS",
+            "de": "GDACS-Bericht",
+            "es": "Informe GDACS"
+          }
+        }
+      ]
+    },
+    {
+      "key": "level_raised",
+      "label": {
+        "en": "GDACS: alert level raised",
+        "fr": "GDACS : niveau d'alerte relevé",
+        "de": "GDACS: Warnstufe erhöht",
+        "es": "GDACS: nivel de alerta elevado"
+      },
+      "description": {
+        "en": "A followed event goes from green to orange or red, or from orange to red.",
+        "fr": "Un événement suivi passe du vert à l'orange ou au rouge, ou de l'orange au rouge.",
+        "de": "Ein verfolgtes Ereignis wechselt von Grün auf Orange oder Rot, oder von Orange auf Rot.",
+        "es": "Un evento seguido pasa de verde a naranja o rojo, o de naranja a rojo."
+      },
+      "fields": [
+        {
+          "key": "event_type",
+          "type": "multi_select",
+          "label": {
+            "en": "Event types",
+            "fr": "Types d'événements",
+            "de": "Ereignistypen",
+            "es": "Tipos de evento"
+          },
+          "options": [
+            {
+              "value": "earthquake",
+              "label": {
+                "en": "Earthquake",
+                "fr": "Séisme",
+                "de": "Erdbeben",
+                "es": "Terremoto"
+              }
+            },
+            {
+              "value": "tropical_cyclone",
+              "label": {
+                "en": "Tropical cyclone",
+                "fr": "Cyclone tropical",
+                "de": "Tropischer Wirbelsturm",
+                "es": "Ciclón tropical"
+              }
+            },
+            {
+              "value": "flood",
+              "label": {
+                "en": "Flood",
+                "fr": "Inondation",
+                "de": "Überschwemmung",
+                "es": "Inundación"
+              }
+            },
+            {
+              "value": "volcano",
+              "label": {
+                "en": "Volcanic eruption",
+                "fr": "Éruption volcanique",
+                "de": "Vulkanausbruch",
+                "es": "Erupción volcánica"
+              }
+            },
+            {
+              "value": "drought",
+              "label": {
+                "en": "Drought",
+                "fr": "Sécheresse",
+                "de": "Dürre",
+                "es": "Sequía"
+              }
+            },
+            {
+              "value": "wildfire",
+              "label": {
+                "en": "Forest fire",
+                "fr": "Feu de forêt",
+                "de": "Waldbrand",
+                "es": "Incendio forestal"
+              }
+            }
+          ]
+        },
+        {
+          "key": "level",
+          "type": "multi_select",
+          "label": {
+            "en": "New level",
+            "fr": "Nouveau niveau",
+            "de": "Neue Stufe",
+            "es": "Nuevo nivel"
+          },
+          "options": [
+            {
+              "value": "orange",
+              "label": {
+                "en": "Orange",
+                "fr": "Orange",
+                "de": "Orange",
+                "es": "Naranja"
+              }
+            },
+            {
+              "value": "red",
+              "label": {
+                "en": "Red",
+                "fr": "Rouge",
+                "de": "Rot",
+                "es": "Rojo"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "event_type",
+          "type": "string",
+          "label": {
+            "en": "Event type (earthquake, flood…)",
+            "fr": "Type d'événement (earthquake, flood…)",
+            "de": "Ereignistyp (earthquake, flood…)",
+            "es": "Tipo de evento (earthquake, flood…)"
+          }
+        },
+        {
+          "key": "level",
+          "type": "string",
+          "label": {
+            "en": "Level (green, orange, red)",
+            "fr": "Niveau (green, orange, red)",
+            "de": "Stufe (green, orange, red)",
+            "es": "Nivel (green, orange, red)"
+          }
+        },
+        {
+          "key": "event_type_name",
+          "type": "string",
+          "label": {
+            "en": "Event type, in words",
+            "fr": "Type d'événement, en toutes lettres",
+            "de": "Ereignistyp, ausgeschrieben",
+            "es": "Tipo de evento, en palabras"
+          }
+        },
+        {
+          "key": "level_name",
+          "type": "string",
+          "label": {
+            "en": "Level, in words",
+            "fr": "Niveau, en toutes lettres",
+            "de": "Stufe, ausgeschrieben",
+            "es": "Nivel, en palabras"
+          }
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "label": {
+            "en": "Event and magnitude",
+            "fr": "Événement et ampleur",
+            "de": "Ereignis und Stärke",
+            "es": "Evento y magnitud"
+          }
+        },
+        {
+          "key": "country",
+          "type": "string",
+          "label": {
+            "en": "Countries",
+            "fr": "Pays",
+            "de": "Länder",
+            "es": "Países"
+          }
+        },
+        {
+          "key": "distance_km",
+          "type": "number",
+          "label": {
+            "en": "Distance (km)",
+            "fr": "Distance (km)",
+            "de": "Entfernung (km)",
+            "es": "Distancia (km)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          }
+        },
+        {
+          "key": "url",
+          "type": "string",
+          "label": {
+            "en": "GDACS report",
+            "fr": "Rapport GDACS",
+            "de": "GDACS-Bericht",
+            "es": "Informe GDACS"
+          }
+        },
+        {
+          "key": "previous_level",
+          "type": "string",
+          "label": {
+            "en": "Previous level",
+            "fr": "Niveau précédent",
+            "de": "Vorherige Stufe",
+            "es": "Nivel anterior"
+          }
+        },
+        {
+          "key": "previous_level_name",
+          "type": "string",
+          "label": {
+            "en": "Previous level, in words",
+            "fr": "Niveau précédent, en toutes lettres",
+            "de": "Vorherige Stufe, ausgeschrieben",
+            "es": "Nivel anterior, en palabras"
+          }
         }
       ]
     }
   ],
   "scene_actions": [
     {
-      "key": "identify_device",
-      "label": { "en": "Identify a device", "fr": "Identifier un appareil" },
-      "description": {
-        "en": "Make a device signal itself (the demo light blinks).",
-        "fr": "Fait se signaler un appareil (la lampe de démonstration clignote)."
+      "key": "read_alerts",
+      "label": {
+        "en": "GDACS: read the current alerts",
+        "fr": "GDACS : lire les alertes en cours",
+        "de": "GDACS: aktuelle Warnungen lesen",
+        "es": "GDACS: leer las alertas actuales"
       },
-      "timeout_seconds": 15,
-      "fields": [
-        {
-          "key": "device",
-          "type": "select",
-          "source": "devices",
-          "label": { "en": "Device", "fr": "Appareil" },
-          "required": true
-        }
-      ],
+      "description": {
+        "en": "The alerts of your area as one sentence, to send by message or read aloud.",
+        "fr": "Les alertes de votre zone en une phrase, à envoyer par message ou à lire à voix haute.",
+        "de": "Die Warnungen deines Gebiets als ein Satz, zum Senden per Nachricht oder zum Vorlesen.",
+        "es": "Las alertas de su zona en una frase, para enviar por mensaje o leer en voz alta."
+      },
+      "timeout_seconds": 60,
       "outputs": [
         {
-          "key": "signalled",
-          "type": "boolean",
-          "label": { "en": "Device signalled", "fr": "Appareil signalé" }
+          "key": "text",
+          "type": "string",
+          "label": {
+            "en": "Alerts, in one sentence",
+            "fr": "Alertes, en une phrase",
+            "de": "Warnungen, in einem Satz",
+            "es": "Alertas, en una frase"
+          }
+        },
+        {
+          "key": "count",
+          "type": "number",
+          "label": {
+            "en": "Number of alerts",
+            "fr": "Nombre d'alertes",
+            "de": "Anzahl der Warnungen",
+            "es": "Número de alertas"
+          }
+        },
+        {
+          "key": "max_level",
+          "type": "string",
+          "label": {
+            "en": "Highest level (none, green, orange, red)",
+            "fr": "Niveau le plus haut (none, green, orange, red)",
+            "de": "Höchste Stufe (none, green, orange, red)",
+            "es": "Nivel más alto (none, green, orange, red)"
+          }
         }
       ]
     }
   ],
   "widgets": [
     {
-      "key": "demo_status",
-      "label": { "en": "Demo status", "fr": "État de la démo" },
-      "description": {
-        "en": "Live temperature and plug power, plug connection and observed location.",
-        "fr": "Température et puissance en direct, connexion de la prise, position observée."
+      "key": "alerts",
+      "label": {
+        "en": "GDACS alerts",
+        "fr": "Alertes GDACS",
+        "de": "GDACS-Warnungen",
+        "es": "Alertas GDACS"
       },
-      "icon": "activity",
-      "action_timeout_seconds": 15
+      "description": {
+        "en": "Current alerts of your area, highest level first, then nearest.",
+        "fr": "Alertes en cours dans votre zone, du niveau le plus haut au plus proche.",
+        "de": "Aktuelle Warnungen deines Gebiets, höchste Stufe zuerst, dann die nächsten.",
+        "es": "Alertas actuales de su zona, primero el nivel más alto, luego las más cercanas."
+      },
+      "icon": "alert-triangle"
     }
   ]
 }
