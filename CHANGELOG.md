@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-11-17
+
 ### Changed
 
 - Update to integration SDK 0.16.1.
@@ -43,6 +45,7 @@ the notes of the version's GitHub Release.
 - Refresh every 10, 15, 30 or 60 minutes by the integration itself, without relying on Gladys
   polling. Texts in English, French, German and Spanish.
 
-[Unreleased]: https://github.com/guim31/gladys-gdacs/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/guim31/gladys-gdacs/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/guim31/gladys-gdacs/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/guim31/gladys-gdacs/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/guim31/gladys-gdacs/releases/tag/v1.0.0
